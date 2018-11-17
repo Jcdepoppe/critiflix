@@ -16,27 +16,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="theaters")
+public class Theater {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @Size(min=1, message="You must enter your alias")
-    private String alias;
-    @Size(min=1, message="You must enter an email")
-    @Email(message="Email must be valid")
-    private String email;
-
-    private int zipcode;
-    @Size(min=8, message="Password must be at least 8 characters")
-    private String password;
-    @Transient
-    private String passwordConfirmation;
+    private String name;
+    private int zipcode; 
+    private Long theatreApiId;
+    // Fandago information...
+    
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
@@ -44,15 +35,14 @@ public class User {
 	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "favorites", 
-        joinColumns = @JoinColumn(name = "user_id"), 
-        inverseJoinColumns = @JoinColumn(name = "theater_id")
+        joinColumns = @JoinColumn(name = "theater_id"), 
+        inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<Theater> theater;
-    
-	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<User> users;
+	
+	@OneToMany(mappedBy="theater", fetch = FetchType.LAZY)
 	private List<Rating> ratings;
-	
-	
+
 	
     public Long getId() {
 		return id;
@@ -60,17 +50,11 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getAlias() {
-		return alias;
+	public String getName() {
+		return name;
 	}
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public int getZipcode() {
 		return zipcode;
@@ -78,17 +62,11 @@ public class User {
 	public void setZipcode(int zipcode) {
 		this.zipcode = zipcode;
 	}
-	public String getPassword() {
-		return password;
+	public Long getTheatreApiId() {
+		return theatreApiId;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getPasswordConfirmation() {
-		return passwordConfirmation;
-	}
-	public void setPasswordConfirmation(String passwordConfirmation) {
-		this.passwordConfirmation = passwordConfirmation;
+	public void setTheatreApiId(Long theatreApiId) {
+		this.theatreApiId = theatreApiId;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -102,11 +80,11 @@ public class User {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	public List<Theater> getTheater() {
-		return theater;
+	public List<User> getUsers() {
+		return users;
 	}
-	public void setTheater(List<Theater> theater) {
-		this.theater = theater;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 	public List<Rating> getRatings() {
 		return ratings;
