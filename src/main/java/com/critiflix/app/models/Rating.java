@@ -10,27 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="theatres")
+public class Rating {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @Size(min=1, message="You must enter your alias")
-    private String alias;
-    @Size(min=1, message="You must enter an email")
-    @Email(message="Email must be valid")
-    private String email;
-
-    private int zipcode;
-    @Size(min=8, message="Password must be at least 8 characters")
-    private String password;
-    @Transient
-    private String passwordConfirmation;
+    private double aggregate;
+    private double cleanliness;
+    private double foodQuality;
+    private double screenNum;
+    private double service; 
+    
+    
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
