@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.critiflix.app.models.User;
 import com.critiflix.app.repos.UserRepo;
 
 @Service 
