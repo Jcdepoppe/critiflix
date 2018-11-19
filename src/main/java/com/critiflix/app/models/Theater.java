@@ -42,9 +42,12 @@ public class Theater {
 	
 	@OneToMany(mappedBy="theater", fetch = FetchType.LAZY)
 	private List<Rating> ratings;
-
 	
-    public Long getId() {
+    public Theater() {
+	}
+    
+    
+	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
