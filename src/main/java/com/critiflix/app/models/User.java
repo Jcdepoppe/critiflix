@@ -18,6 +18,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -31,7 +32,8 @@ public class User {
     @Size(min=1, message="You must enter an email")
     @Email(message="Email must be valid")
     private String email;
-
+    // Validation for zipcode (work in progress)
+    // @Pattern(regexp="^[0-9]{5}(?:-[0-9]{4})?$", message="Please enter zipcode in valid format")
     private int zipcode;
     @Size(min=8, message="Password must be at least 8 characters")
     private String password;
