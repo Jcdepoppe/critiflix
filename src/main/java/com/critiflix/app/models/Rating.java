@@ -23,11 +23,12 @@ public class Rating {
     private double aggregate;
     private double cleanliness;
     private double foodQuality;
-    private double screenNum;
+//    private double screenNum;
     private double service; 
+    private String description;
     
     
-    @Column(updatable=false)
+	@Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
     
@@ -38,7 +39,17 @@ public class Rating {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="theater_id")
     private Theater theater;
+      
+    public Rating() {
+	}
     
+    
+	public String getDescription() {
+    	return description;
+    }
+    public void setDescription(String description) {
+    	this.description = description;
+    }
     public Long getId() {
 		return id;
 	}
@@ -63,12 +74,7 @@ public class Rating {
 	public void setFoodQuality(double foodQuality) {
 		this.foodQuality = foodQuality;
 	}
-	public double getScreenNum() {
-		return screenNum;
-	}
-	public void setScreenNum(double screenNum) {
-		this.screenNum = screenNum;
-	}
+	
 	public double getService() {
 		return service;
 	}

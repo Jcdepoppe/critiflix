@@ -52,9 +52,10 @@ public class User {
 	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
 	private List<Rating> ratings;
 	
-	
-	
-    public Long getId() {
+    public User() {
+	}
+    
+	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
