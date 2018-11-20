@@ -25,8 +25,9 @@ public class Theater {
     private Long id;
     private String name;
     private int zipcode; 
-    private Long theatreApiId;
-    // Fandago information...
+    private String theatreApiId;
+    private String googleApiPlaceId;
+    // Fandango information...
     
     @Column(updatable=false)
     private Date createdAt;
@@ -65,12 +66,6 @@ public class Theater {
 	public void setZipcode(int zipcode) {
 		this.zipcode = zipcode;
 	}
-	public Long getTheatreApiId() {
-		return theatreApiId;
-	}
-	public void setTheatreApiId(Long theatreApiId) {
-		this.theatreApiId = theatreApiId;
-	}
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -95,6 +90,22 @@ public class Theater {
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
 	}
+	public String getGoogleApiPlaceId() {
+		return googleApiPlaceId;
+	}
+
+	public void setGoogleApiPlaceId(String googleApiPlaceId) {
+		this.googleApiPlaceId = googleApiPlaceId;
+	}
+
+	public void setTheatreApiId(String theatreApiId) {
+		this.theatreApiId = theatreApiId;
+	}
+
+	public String getTheatreApiId() {
+		return theatreApiId;
+	}
+
 	@PrePersist
     protected void onCreate(){
         this.createdAt = new Date();
