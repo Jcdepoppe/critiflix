@@ -15,7 +15,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="theatres")
+@Table(name="ratings")
 public class Rating {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,7 +23,6 @@ public class Rating {
     private double aggregate;
     private double cleanliness;
     private double foodQuality;
-//    private double screenNum;
     private double service; 
     private String description;
     
