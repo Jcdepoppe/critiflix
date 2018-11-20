@@ -1,5 +1,7 @@
 package com.critiflix.app.services;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.critiflix.app.models.Rating;
@@ -18,6 +20,31 @@ public class RatingService {
 	public Rating create(Rating rating) {
 		return ratingRepo.save(rating);
 		
+	}
+
+
+
+	public Rating getRatingById(Long id) {
+		Optional<Rating> rating = ratingRepo.findById(id);
+		
+		if(rating.isPresent()) {
+			return rating.get();
+		}
+		else {
+			return null;			
+		}
+	}
+
+
+
+	public Rating updateRating(Rating rating) {
+		return ratingRepo.save(rating);
+	}
+
+
+
+	public void deleteRating(Long id) {
+		ratingRepo.deleteById(id);
 	}
 
 }
