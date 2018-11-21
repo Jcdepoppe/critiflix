@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
-import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
@@ -23,17 +22,17 @@ public class MovieTimeService {
 		this.movieTimeRepo = movieTimeRepo; 
 	} 
 
-	// returns all the songs 
-	public List<MovieTime> allSongs() { 
+	// returns all the movie times 
+	public List<MovieTime> allMovieTimes() { 
 	    return movieTimeRepo.findAll(); 
 	} 
 
-	// creates a song 
-	public MovieTime createSong(MovieTime movieTime) { 
+	// creates a movie time 
+	public MovieTime createMovieTime(MovieTime movieTime) { 
 	    return movieTimeRepo.save(movieTime); 
 	} 
 
-	// retrieves a song 
+	// retrieves a movie time 
 	public MovieTime findMovieTime(Long id) { 
 	    Optional<MovieTime> optionalMovieTime = movieTimeRepo.findById(id); 
 	    if(optionalMovieTime.isPresent()) { 
@@ -43,10 +42,10 @@ public class MovieTimeService {
 	    } 
 	}
 	
-	public JSONArray GetSampleMovieTimeJSON() throws org.json.simple.parser.ParseException, ParseException {
+	public JSONArray GetSampleMovieTimeJSON() throws ParseException {
 		
         //JSON parser object to parse read file
-        JSONParser jsonParser = new JSONParser();
+		JSONParser jsonParser = new JSONParser();
         JSONArray movieTimeList = new JSONArray();
                          
         try (FileReader reader = new FileReader("src/main/resources/static/json/98004-11192018.json"))
@@ -59,7 +58,10 @@ public class MovieTimeService {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } catch (org.json.simple.parser.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return movieTimeList;
 	}
 }

@@ -9,17 +9,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="movietimes")
 public class MovieTime {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+    //@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
     private Date startTime;
     private String title;
-    private Long duration; // seconds
+    private Long duration; // milliseconds
     private String short_description;
-    private String imageUrl;
+    private String theaterAPIid;
+    private String GAPIPlaceID;
+    //private String imageUrl;
     
     @Column(updatable=false)
     private Date createdAt;
@@ -54,12 +59,6 @@ public class MovieTime {
 	public void setShort_description(String short_description) {
 		this.short_description = short_description;
 	}
-	public String getImageUrl() {
-		return imageUrl;
-	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -71,6 +70,18 @@ public class MovieTime {
 	}
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	public String getTheaterAPIid() {
+		return theaterAPIid;
+	}
+	public void setTheaterAPIid(String theaterAPIid) {
+		this.theaterAPIid = theaterAPIid;
+	}
+	public String getGAPIPlaceID() {
+		return GAPIPlaceID;
+	}
+	public void setGAPIPlaceID(String gAPIPlaceID) {
+		GAPIPlaceID = gAPIPlaceID;
 	}
     
 }
