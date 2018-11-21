@@ -27,6 +27,11 @@ public class MovieTimeService {
 	    return movieTimeRepo.findAll(); 
 	} 
 
+	// returns all the movie times 
+	public List<MovieTime> allMovieTimesForPlaceId(String placeid) { 
+	    return movieTimeRepo.findByplaceidOrderByStarttimeAsc(placeid); 
+	} 
+	
 	// creates a movie time 
 	public MovieTime createMovieTime(MovieTime movieTime) { 
 	    return movieTimeRepo.save(movieTime); 

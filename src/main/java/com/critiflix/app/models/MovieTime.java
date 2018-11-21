@@ -18,12 +18,13 @@ public class MovieTime {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     //@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
-    private Date startTime;
+    private Date starttime;
     private String title;
     private Long duration; // milliseconds
-    private String short_description;
-    private String theaterAPIid;
-    private String GAPIPlaceID;
+    private String strduration;
+    private String shortdescription;
+    private String theaterapiid;
+    private String placeid;
     //private String imageUrl;
     
     @Column(updatable=false)
@@ -35,12 +36,7 @@ public class MovieTime {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Date getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -53,12 +49,7 @@ public class MovieTime {
 	public void setDuration(Long duration) {
 		this.duration = duration;
 	}
-	public String getShort_description() {
-		return short_description;
-	}
-	public void setShort_description(String short_description) {
-		this.short_description = short_description;
-	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -71,17 +62,35 @@ public class MovieTime {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	public String getTheaterAPIid() {
-		return theaterAPIid;
+	public Date getStarttime() {
+		return starttime;
 	}
-	public void setTheaterAPIid(String theaterAPIid) {
-		this.theaterAPIid = theaterAPIid;
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
 	}
-	public String getGAPIPlaceID() {
-		return GAPIPlaceID;
+	public String getShortdescription() {
+		return shortdescription;
 	}
-	public void setGAPIPlaceID(String gAPIPlaceID) {
-		GAPIPlaceID = gAPIPlaceID;
+	public void setShortdescription(String shortdescription) {
+		this.shortdescription = shortdescription;
 	}
-    
+	public String getTheaterapiid() {
+		return theaterapiid;
+	}
+	public void setTheaterapiid(String theaterapiid) {
+		this.theaterapiid = theaterapiid;
+	}
+	public String getPlaceid() {
+		return placeid;
+	}
+	public void setPlaceid(String placeid) {
+		this.placeid = placeid;
+	}
+	public String getStrduration() {
+		return strduration;
+	}
+	public void setStrduration(String strduration) {
+		this.strduration = strduration;
+	}
+   
 }

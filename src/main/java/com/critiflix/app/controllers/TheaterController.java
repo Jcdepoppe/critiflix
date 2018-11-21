@@ -5,12 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +45,22 @@ public class TheaterController {
 		return "zip.jsp";
 	}
 
+	 @RequestMapping("/{placeid}")
+	 public String showTheater(@PathVariable("placeid") String placeid, HttpSession session, Model model ) {
+
+		 User loggedInUser = (User) session.getAttribute("user");
+		 if ((loggedInUser.equals(null))) {
+			 return "redirect:/";
+		 }
+		 
+		 System.out.println(placeid);
+		 
+		 List<MovieTime> movieTimes = movieTimeService.allMovieTimesForPlaceId(placeid);
+		 model.addAttribute("movieTimes", movieTimes);
+		 
+		 return "/showtheater.jsp";
+	 }	
+	
 	@RequestMapping(value="/getzipcode", method=RequestMethod.POST) 
 	public String create(@RequestParam("zipcode") String zipcode, HttpSession session) { 
 		List<TheaterLocation> theaterlocations = new ArrayList<TheaterLocation>();
@@ -138,12 +157,24 @@ public class TheaterController {
 			            	System.out.println(jsoCandidate.get("place_id"));
 			            	
 			            	MovieTime movieTime = new MovieTime();
-			            	movieTime.setGAPIPlaceID((String)jsoCandidate.get("place_id"));
-			            	movieTime.setTheaterAPIid((String)jsoTheater.get("id"));
-			            	movieTime.setStartTime(dateST);
+			            	movieTime.setPlaceid((String)jsoCandidate.get("place_id"));
+			            	movieTime.setTheaterapiid((String)jsoTheater.get("id"));
+			            	movieTime.setStarttime(dateST);
 			            	movieTime.setTitle((String) jso.get("title"));
-			            	movieTime.setDuration(date.getTime());
-			            	movieTime.setShort_description((String) jso.get("shortDescription")); 
+			            	Long millis = date.getTime();
+			            	movieTime.setDuration(millis);
+			            	
+			            	
+			            	// New date object from millis
+			            	Date millidate = new Date(millis);
+			            	// formattter 
+			            	SimpleDateFormat formatter= new SimpleDateFormat("HH:mm");
+			            	formatter.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+			            	// Pass date object
+			            	String strDuration = formatter.format(millidate);
+			            	movieTime.setStrduration(strDuration);
+			            	
+			            	movieTime.setShortdescription((String) jso.get("shortDescription")); 
 			            	movieTimeService.createMovieTime(movieTime);
 			            	
 			            	

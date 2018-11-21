@@ -56,12 +56,6 @@
             </c:forEach>
             ];
 
-        var myLatLng = [    {lat: 47.579064, lng: -122.1702689},
-                        {lat: 47.4987544, lng: -122.2033417},
-                        {lat: 47.54391400000001, lng: -122.018032},];
-
-        // Create a map object and specify the DOM element
-        // for display.
         var map = new google.maps.Map(document.getElementById('map'), {
             center: tlLatLng[0],
             zoom: 11
@@ -72,7 +66,7 @@
         var contentString = [];
 
         <c:forEach items="${theaterlocations}" var="location" varStatus="counter">
-            contentString[${counter.count-1}] = "<div id='content'> <div id='siteNotice'></div> <h3 id='firstHeading' class='firstHeading'>${location.name}</h3> <div id='bodyContent'><p>${location.vicinity}</p></div></div>";
+            contentString[${counter.count-1}] = "<div id='content'> <div id='siteNotice'></div> <h3 id='firstHeading' class='firstHeading'>${location.name}</h3> <div id='bodyContent'><p>${location.vicinity}</p><a href='/theaters/${location.place_id}'>Select Theater</a></div></div>";
             infowindow[${counter.count-1}] = new google.maps.InfoWindow({ content: contentString[${counter.count-1}]});
             marker[${counter.count-1}] = new google.maps.Marker({ map: map, position: tlLatLng[${counter.count-1}], title: "${location.name}"});
             marker[${counter.count-1}].addListener('click', function() { infowindow[${counter.count-1}].open(map, marker[${counter.count-1}]); });
