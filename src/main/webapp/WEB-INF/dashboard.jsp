@@ -29,7 +29,10 @@
         <div class="row">
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2"></div>
             <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
-                <input type="text" value="${postalcode}">
+                <form method="POST" action="/theaters/getzipcode">
+                    <input type="text" name="zipcode" placeholder="Enter Zip Code">
+                    <input type="submit" value="Search">
+                </form>
             </div>
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2"></div>
         </div>
@@ -41,20 +44,38 @@
         </div>
     </div>
 
+    <script>
+
+        
+
+        function initMap() {
+
+        var tlLatLng = [
+            <c:forEach items="${theaterlocations}" var="location" varStatus="counter">
+                {lat: ${location.lat}, lng: ${location.lng} }, 
+            </c:forEach>
+            ];
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: tlLatLng[0],
+            zoom: 11
+        });
+
+        var marker = [];
+        var infowindow = [];
+        var contentString = [];
+
+        <c:forEach items="${theaterlocations}" var="location" varStatus="counter">
+            contentString[${counter.count-1}] = "<div id='content'> <div id='siteNotice'></div> <h3 id='firstHeading' class='firstHeading'>${location.name}</h3> <div id='bodyContent'><p>${location.vicinity}</p><a href='/theaters/${location.place_id}'>Select Theater</a></div></div>";
+            infowindow[${counter.count-1}] = new google.maps.InfoWindow({ content: contentString[${counter.count-1}]});
+            marker[${counter.count-1}] = new google.maps.Marker({ map: map, position: tlLatLng[${counter.count-1}], title: "${location.name}"});
+            marker[${counter.count-1}].addListener('click', function() { infowindow[${counter.count-1}].open(map, marker[${counter.count-1}]); });
+        </c:forEach>
+
+    }
+</script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_aOK49a2Rm00tCPaeNE6d23F0y2O7BL4&callback=initMap" async defer></script>
 
-<script>
-
-    var contentString = '<div id="content">'+
-        '<div id="siteNotice">'+
-        '</div>'+
-        '<h1 id="firstHeading" class="firstHeading">TEST CONTENT</h1>'+
-        '<div id="bodyContent">'+
-        <c:forEach items="${users}" var="user">
-            '<p>${user.alias} - ${user.email} </p>'+       
-        </c:forEach>
-        '</div>'+
-        '</div>';
-</script>
 </body>
 </html>
