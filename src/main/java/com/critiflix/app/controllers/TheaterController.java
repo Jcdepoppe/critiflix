@@ -43,8 +43,25 @@ public class TheaterController {
 	@RequestMapping("")
 	public String enterzip() {
 		return "zip.jsp";
-	}
+	}	
+	
+	@RequestMapping(value="/selectshowing", method=RequestMethod.POST) 
+	public String selectshowing(@RequestParam("showid") Long showid, @RequestParam("placeid") String placeid, HttpSession session, Model model) { 
+		System.out.println("============================================selectshowing()");
+		System.out.println(showid);
+		System.out.println(placeid);
 
+		MovieTime movietime = movieTimeService.findMovieTime(showid);
+		System.out.println(movietime.getTitle());
+		Date newtime = movietime.getStarttime();
+	
+		System.out.println("==-==-=-==-=-==" + newtime);
+		List<MovieTime> movieTimes = movieTimeService.getMovieTimes2(placeid, newtime);
+		model.addAttribute("movieTimes", movieTimes);		
+		
+		return "redirect:/theaters/" + placeid;
+	} 	
+	
 	 @RequestMapping("/{placeid}")
 	 public String showTheater(@PathVariable("placeid") String placeid, HttpSession session, Model model ) {
 
@@ -54,8 +71,11 @@ public class TheaterController {
 		 }
 		 
 		 System.out.println(placeid);
+		 session.setAttribute("placeid", placeid);
 		 
-		 List<MovieTime> movieTimes = movieTimeService.allMovieTimesForPlaceId(placeid);
+		 // List<MovieTime> movieTimes = movieTimeService.allMovieTimesForPlaceId(placeid);
+		 Date datenow = new Date();
+		 List<MovieTime> movieTimes = movieTimeService.getMovieTimes2(placeid, datenow);
 		 model.addAttribute("movieTimes", movieTimes);
 		 
 		 return "/showtheater.jsp";
@@ -133,6 +153,9 @@ public class TheaterController {
 	            }
 	            String strRT = strRTRaw.substring(2);
 	            
+	            JSONObject jsoPImage = (JSONObject) jso.get("preferredImage");
+	            String strImageUrl = (String) jsoPImage.get("uri");
+	            
 	            SimpleDateFormat sdf = new SimpleDateFormat("hh'H'mm'M'");
 	            Date date = sdf.parse(strRT);
 	            System.out.println(date);
@@ -161,6 +184,7 @@ public class TheaterController {
 			            	movieTime.setTheaterapiid((String)jsoTheater.get("id"));
 			            	movieTime.setStarttime(dateST);
 			            	movieTime.setTitle((String) jso.get("title"));
+			            	movieTime.setImageUrl(strImageUrl);
 			            	Long millis = date.getTime();
 			            	movieTime.setDuration(millis);
 			            	

@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +54,7 @@ public class MovieTimeService {
 		JSONParser jsonParser = new JSONParser();
         JSONArray movieTimeList = new JSONArray();
                          
-        try (FileReader reader = new FileReader("src/main/resources/static/json/98004-11192018.json"))
+        try (FileReader reader = new FileReader("src/main/resources/static/json/90210-11212018.json"))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
@@ -68,5 +69,9 @@ public class MovieTimeService {
 			e.printStackTrace();
 		}
         return movieTimeList;
+	}
+	
+	public List<MovieTime> getMovieTimes2(String placeid, Date starttime) {
+		return movieTimeRepo.findByplaceidAndStarttimeGreaterThanOrderByStarttimeAsc(placeid, starttime);
 	}
 }

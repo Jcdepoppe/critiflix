@@ -25,7 +25,7 @@ public class MovieTime {
     private String shortdescription;
     private String theaterapiid;
     private String placeid;
-    //private String imageUrl;
+    private String imageUrl;
     
     @Column(updatable=false)
     private Date createdAt;
@@ -91,6 +91,12 @@ public class MovieTime {
 	}
 	public void setStrduration(String strduration) {
 		this.strduration = strduration;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
    
 }

@@ -24,7 +24,7 @@
 <title>Select Movies</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <br><br>
         <div class="row">
             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2"></div>
@@ -49,12 +49,12 @@
         <br>
         <hr>
         <div class="row">
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2"></div>
-            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <th>Start Time</th>
-                        <th>Movie Title</th>
+                        <th colspan="2">Movie Title</th>
                         <th>Description</th>
                         <th>Duration (HH:mm)</th>
                         <th>Action</th>
@@ -63,12 +63,14 @@
                         <c:forEach items="${movieTimes}" var="movieTime">
                             <tr>
                                 <td>${movieTime.starttime}</td>
-								<td>${movieTime.title}</td>
+                                <td><img src='https://cuso.tmsimg.com/${movieTime.imageUrl}' alt='Movie Image' height='75' width='75'></td>
+                                <td>${movieTime.title}</td>
                                 <td>${movieTime.shortdescription}</td>
                                 <td>${movieTime.strduration}</td>
                                 <td>
-                                    <form action="/theaters/selectshowing">
+                                    <form action="/theaters/selectshowing" method="POST">
                                         <input type="hidden" name="showid" value="${movieTime.id}">
+                                        <input type="hidden" name="placeid" value="${placeid}">
                                         <input class="btn btn-primary" type="submit" value="Select">
                                     </form>
                                 </td>
@@ -77,7 +79,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2"></div>
+            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1"></div>
         </div>
     </div>
 
