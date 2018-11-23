@@ -29,15 +29,17 @@ public class RatingController {
 	}
 	
 	@RequestMapping("/create")
-	public String createRating(@ModelAttribute("rating") Rating rating, BindingResult result, HttpSession session) {
+	public String createRating(@ModelAttribute("rating") Rating rating, BindingResult result, HttpSession session, Model model) {
 		double sum = rating.getCleanliness() + rating.getFoodQuality() + rating.getService();
 		double avg = sum / 3;
 		rating.setAggregate(avg);
 		User user = (User)session.getAttribute("user");
 		rating.setUser(user);
+		//request.getParameter("stars");
 		//Get the theater object and add the rating to its rating list
 		rating = ratingService.create(rating);
-		return "redirect:/theaters";
+		model.addAttribute("rating", rating);
+		return "test.jsp";
 	}
 	
 	@RequestMapping("/{id}/edit")
@@ -48,14 +50,15 @@ public class RatingController {
 	}
 	
 	@RequestMapping(value="/{id}/edit", method=RequestMethod.PUT)
-	public String updateRating(@ModelAttribute("rating") Rating rating, HttpSession session) {
+	public String updateRating(@ModelAttribute("rating") Rating rating, HttpSession session, Model model) {
 		
 		double sum = rating.getCleanliness() + rating.getFoodQuality() + rating.getService();
 		rating.setAggregate(sum / 3);
 		User user = (User)session.getAttribute("user");
 		rating.setUser(user);
 		ratingService.updateRating(rating);
-		return "redirect:/theaters";
+		model.addAttribute("rating", rating);
+		return "test.jsp";
 	}
 	
 	@RequestMapping(value="/{id}/edit", method=RequestMethod.DELETE)

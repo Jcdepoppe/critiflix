@@ -9,11 +9,15 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.critiflix.app.models.Rating;
 import com.critiflix.app.services.MovieTimeService;
+import com.critiflix.app.services.RatingService;
 import com.critiflix.app.services.TheaterService;
 import com.critiflix.app.services.UserService;
 
@@ -23,11 +27,13 @@ public class TheaterController {
 	private final TheaterService theaterService;
 	private final UserService userService;
 	private final MovieTimeService movieTimeService;
+	private final RatingService ratingService;
 	
-	public TheaterController(TheaterService theaterService, UserService userService, MovieTimeService movieTimeService) {
+	public TheaterController(TheaterService theaterService, UserService userService, MovieTimeService movieTimeService, RatingService ratingService) {
 		this.theaterService = theaterService;
 		this.userService = userService;
 		this.movieTimeService = movieTimeService;
+		this.ratingService = ratingService;
 	}
 	
 	//Display the Entire Zip Code
@@ -43,9 +49,12 @@ public class TheaterController {
 	} 
 	
 	//Display the dashboard/homepage
-	@RequestMapping("/dashboard")
-	public String dashboard() {
-		return "dashboard.jsp";
+	@RequestMapping("/dashboard/{id}")
+	public String dashboard(Model model, @PathVariable("id") Long id) {
+		
+		Rating rating = ratingService.getRatingById(id);
+		model.addAttribute("rating", rating);
+		return "test.jsp";
 	}
 	
 	//Load sample data

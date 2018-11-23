@@ -11,6 +11,10 @@
     crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+    	
+        <meta name="viewport" content="initial-scale=1,width=device-width">
+        <link rel="stylesheet" type="text/css" href="/css/StarRating.css">
+        <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <style>
 	.card{
 		display: block;
@@ -25,30 +29,24 @@
 			<p>Rate the movie theater on these three catagories:</p>
 			<form:form method="POST" action="/ratings/create"
 				modelAttribute="rating">
+				<div style="display: block">
 				<form:label path="cleanliness">Cleanliness:</form:label>
-				<form:select path="cleanliness">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-				</form:select>
+				<x-star-rating value="1" number="5" id="cleanStar">
+				</x-star-rating>
+				<form:input type="hidden" path="cleanliness" id="cleanControl"/>
+				</div>
+				<div style="display: block">
 				<form:label path="foodQuality">Food Quality:</form:label>
-				<form:select path="foodQuality">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-				</form:select>
+				<x-star-rating value="1" number="5" id="qualityStar">
+				</x-star-rating>
+				<form:input type="hidden" path="foodQuality" id="qualityControl"/>
+				</div>
+				<div style="display: block">
 				<form:label path="service">Service:</form:label>
-				<form:select path="service">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-				</form:select>
+				<x-star-rating value="1" number="5" id="serviceStar">
+				</x-star-rating>
+				</div>
+				<form:input type="hidden" path="service" id="serviceControl"/>
 				<p>
 					<form:label path="description">Write a review:</form:label>
 					<form:textarea path="description" />
@@ -57,5 +55,21 @@
 			</form:form>
 		</div>
 	</div>
+	<script type="text/javascript" src="/js/StarRating.js"></script>
+	<script src= 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+	<script type="text/javascript">
+	cleanStar.addEventListener('rate', () => {
+		console.log(cleanStar.value);
+		document.getElementById('cleanControl').setAttribute("value", cleanStar.value);
+	});
+	qualityStar.addEventListener('rate', () => {
+		console.log(qualityStar.value);
+		document.getElementById('qualityControl').setAttribute("value", qualityStar.value);
+	});
+	serviceStar.addEventListener('rate', () => {
+		console.log(serviceStar.value);
+		document.getElementById('serviceControl').setAttribute("value", serviceStar.value);
+	});
+	</script>
 </body>
 </html>

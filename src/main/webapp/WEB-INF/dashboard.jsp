@@ -54,6 +54,11 @@
             '<p>${user.alias} - ${user.email} </p>'+       
         </c:forEach>
         '</div>'+
+        '<div>'+
+        '<form action="/ratings">'+
+        	'<input type="submit" value="Write a review">'+
+        '</form>'+
+        '</div>'+
         '</div>';
 </script>
 </body>
