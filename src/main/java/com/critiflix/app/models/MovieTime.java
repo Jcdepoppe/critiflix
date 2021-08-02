@@ -9,16 +9,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="movietimes")
 public class MovieTime {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private Date startTime;
+    //@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
+    private Date starttime;
     private String title;
-    private Long duration; // seconds
-    private String short_description;
+    private Long duration; // milliseconds
+    private String strduration;
+    private String shortdescription;
+    private String theaterapiid;
+    private String placeid;
     private String imageUrl;
     
     @Column(updatable=false)
@@ -30,12 +36,7 @@ public class MovieTime {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Date getStartTime() {
-		return startTime;
-	}
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -48,18 +49,7 @@ public class MovieTime {
 	public void setDuration(Long duration) {
 		this.duration = duration;
 	}
-	public String getShort_description() {
-		return short_description;
-	}
-	public void setShort_description(String short_description) {
-		this.short_description = short_description;
-	}
-	public String getImageUrl() {
-		return imageUrl;
-	}
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -72,5 +62,41 @@ public class MovieTime {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-    
+	public Date getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
+	}
+	public String getShortdescription() {
+		return shortdescription;
+	}
+	public void setShortdescription(String shortdescription) {
+		this.shortdescription = shortdescription;
+	}
+	public String getTheaterapiid() {
+		return theaterapiid;
+	}
+	public void setTheaterapiid(String theaterapiid) {
+		this.theaterapiid = theaterapiid;
+	}
+	public String getPlaceid() {
+		return placeid;
+	}
+	public void setPlaceid(String placeid) {
+		this.placeid = placeid;
+	}
+	public String getStrduration() {
+		return strduration;
+	}
+	public void setStrduration(String strduration) {
+		this.strduration = strduration;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+   
 }
